@@ -1,0 +1,445 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: transparent;
+  font-family: "Microsoft YaHei", sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+#app {
+  width: 320px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Pet area */
+#pet-area {
+  height: 160px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  cursor: grab;
+  padding-bottom: 4px;
+}
+
+#pet {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+#pet svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* === 主体动画 === */
+#pet.idle { animation: bounce 2.5s ease-in-out infinite; }
+#pet.thinking { animation: thinkSway 1.5s ease-in-out infinite; }
+#pet.talking { animation: wiggle 0.4s ease-in-out infinite; }
+#pet.hover { animation: hoverBounce 0.8s ease-in-out infinite; }
+#pet.click { animation: jumpClick 0.6s ease-out; }
+#pet.dragged { animation: wobble 0.5s ease-in-out; }
+
+/* === 手臂动画 === */
+#pet .arm-l, #pet .arm-r { transform-origin: top center; }
+#pet.idle .arm-l { animation: armSwingL 2.5s ease-in-out infinite; }
+#pet.idle .arm-r { animation: armSwingR 2.5s ease-in-out infinite; }
+#pet.talking .arm-l { animation: talkArmL 0.4s ease-in-out infinite alternate; }
+#pet.talking .arm-r { animation: talkArmR 0.4s ease-in-out infinite alternate-reverse; }
+#pet.thinking .arm-l { animation: thinkArm 1.5s ease-in-out infinite; }
+#pet.click .arm-l, #pet.click .arm-r { animation: cheerArm 0.3s ease-in-out 2; }
+#pet.hover .arm-l, #pet.hover .arm-r { animation: shyArm 0.6s ease-in-out forwards; }
+
+/* === 尾巴动画 === */
+#pet .tail { transform-origin: 0% 50%; }
+#pet.idle .tail { animation: tailWag 1.8s ease-in-out infinite; }
+#pet.click .tail { animation: tailWagFast 0.3s ease-in-out 3; }
+#pet.hover .tail { animation: tailSlow 2.5s ease-in-out infinite; }
+
+/* === 耳朵动画 === */
+#pet .ear-l, #pet .ear-r { transform-origin: bottom center; }
+#pet.idle .ear-l { animation: earTwitchL 4s ease-in-out infinite; }
+#pet.idle .ear-r { animation: earTwitchR 4s ease-in-out infinite 0.3s; }
+#pet.click .ear-l, #pet.click .ear-r { animation: earPerk 0.3s ease-out 2; }
+#pet.hover .ear-l { animation: earDroop 0.5s ease-out forwards; }
+#pet.hover .ear-r { animation: earDroop 0.5s ease-out 0.1s forwards; }
+
+/* === 头发飘动 === */
+#pet .hair-sway { animation: hairSway 3s ease-in-out infinite; }
+#pet .hair-sway-r { animation: hairSwayR 3s ease-in-out infinite 0.5s; }
+
+/* === 呆毛 === */
+#pet .ahoge { transform-origin: bottom center; animation: ahogeBounce 2s ease-in-out infinite; }
+
+/* === 胡须 === */
+#pet .whisker { animation: whiskerTwitch 3s ease-in-out infinite; }
+
+/* === 特效动画 === */
+#pet .sparkle-1 { animation: sparkleFloat 0.6s ease-out forwards; }
+#pet .sparkle-2 { animation: sparkleFloat 0.6s ease-out 0.15s forwards; }
+#pet .sparkle-3 { animation: sparkleFloat 0.6s ease-out 0.3s forwards; }
+#pet .dot-1 { animation: dotPulse 1.2s ease-in-out infinite; }
+#pet .dot-2 { animation: dotPulse 1.2s ease-in-out infinite 0.3s; }
+#pet .dot-3 { animation: dotPulse 1.2s ease-in-out infinite 0.6s; }
+#pet .eye-sparkle { animation: eyeSparkle 0.8s ease-in-out infinite; }
+#pet .wand-glow { animation: wandGlow 2s ease-in-out infinite; }
+#pet .wand-pulse { animation: wandPulse 2s ease-in-out infinite; }
+
+/* === Keyframes === */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@keyframes hoverBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.02); }
+}
+@keyframes thinkSway {
+  0%, 100% { transform: rotate(-3deg) translateX(-2px); }
+  50% { transform: rotate(3deg) translateX(2px); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+@keyframes jumpClick {
+  0% { transform: translateY(0) scale(1); }
+  20% { transform: translateY(4px) scale(1.02, 0.95); }
+  50% { transform: translateY(-20px) scale(0.95, 1.08); }
+  70% { transform: translateY(-8px) scale(1); }
+  85% { transform: translateY(-2px); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes wobble {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(-12deg); }
+  30% { transform: rotate(10deg); }
+  45% { transform: rotate(-6deg); }
+  60% { transform: rotate(4deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes armSwingL {
+  0%, 100% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+}
+@keyframes armSwingR {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+@keyframes talkArmL {
+  0% { transform: rotate(-12deg); }
+  100% { transform: rotate(8deg); }
+}
+@keyframes talkArmR {
+  0% { transform: rotate(12deg); }
+  100% { transform: rotate(-8deg); }
+}
+@keyframes thinkArm {
+  0%, 100% { transform: rotate(15deg) translateY(0); }
+  50% { transform: rotate(22deg) translateY(-5px); }
+}
+@keyframes cheerArm {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-30deg) translateY(-5px); }
+}
+@keyframes shyArm {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(10deg) translateY(3px); }
+}
+@keyframes tailWag {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(15deg); }
+}
+@keyframes tailWagFast {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(20deg); }
+}
+@keyframes tailSlow {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+}
+@keyframes earTwitchL {
+  0%, 90%, 100% { transform: rotate(0deg); }
+  93% { transform: rotate(-8deg); }
+  96% { transform: rotate(2deg); }
+}
+@keyframes earTwitchR {
+  0%, 90%, 100% { transform: rotate(0deg); }
+  93% { transform: rotate(8deg); }
+  96% { transform: rotate(-2deg); }
+}
+@keyframes earPerk {
+  0%, 100% { transform: rotate(0deg) scaleY(1); }
+  50% { transform: rotate(0deg) scaleY(1.1); }
+}
+@keyframes earDroop {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-12deg); }
+}
+@keyframes hairSway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes hairSwayR {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-3deg); }
+}
+@keyframes ahogeBounce {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(10deg); }
+}
+@keyframes whiskerTwitch {
+  0%, 85%, 100% { transform: translateY(0); }
+  90% { transform: translateY(-1px); }
+  95% { transform: translateY(1px); }
+}
+@keyframes sparkleFloat {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-12px) scale(0.5); }
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+@keyframes eyeSparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+@keyframes wandGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+@keyframes wandPulse {
+  0%, 100% { r: 6; opacity: 0.15; }
+  50% { r: 10; opacity: 0.05; }
+}
+
+/* 角色选择网格 */
+#character-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-bottom: 8px;
+  min-height: 160px;
+  max-height: 160px;
+  overflow-y: auto;
+  padding: 2px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+#character-grid::-webkit-scrollbar { width: 4px; }
+#character-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+.char-option {
+  border: 2px solid transparent;
+  border-radius: 6px;
+  padding: 3px 2px 2px;
+  cursor: pointer;
+  text-align: center;
+  background: white;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.char-option:hover { border-color: #aaa; }
+.char-option.active { border-color: #07c160; background: #e8f8ee; }
+
+.char-option svg { width: 36px; height: 42px; overflow: visible; }
+.char-option span { display: block; font-size: 10px; color: #666; }
+
+#chat-btn {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(255,255,255,0.8);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#chat-btn:hover { background: rgba(255,255,255,1); }
+
+#settings-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255,255,255,0.8);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#settings-btn:hover { background: rgba(255,255,255,1); }
+
+/* Chat area */
+#chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 16px 16px 8px 8px;
+  margin: 0 8px 8px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+#chat-close-btn {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #999;
+  z-index: 1;
+}
+
+#chat-close-btn:hover { color: #333; }
+
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#messages::-webkit-scrollbar { width: 4px; }
+#messages::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+.msg {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.msg.user {
+  align-self: flex-end;
+  background: #95ec69;
+  color: #000;
+}
+
+.msg.assistant {
+  align-self: flex-start;
+  background: #f0f0f0;
+  color: #333;
+}
+
+/* Input area */
+#input-area {
+  display: flex;
+  padding: 8px;
+  gap: 6px;
+  border-top: 1px solid #eee;
+}
+
+#chat-input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  padding: 6px 14px;
+  font-size: 13px;
+  outline: none;
+}
+
+#chat-input:focus { border-color: #95ec69; }
+
+#send-btn {
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 6px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#send-btn:hover { background: #06ad56; }
+
+/* Settings panel */
+#settings-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.97);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+#settings-panel h3 {
+  font-size: 16px;
+  text-align: center;
+}
+
+#settings-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #666;
+}
+
+#settings-panel select,
+#settings-panel input,
+#settings-panel textarea {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 13px;
+  outline: none;
+}
+
+#settings-panel textarea { resize: vertical; }
+
+.settings-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.settings-actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#save-settings-btn { background: #07c160; color: #fff; }
+#close-settings-btn { background: #eee; color: #333; }
+
+.hidden { display: none !important; }

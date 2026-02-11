@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KeXin</title>
+  <script type="module" crossorigin src="/assets/index-Df3JqE5l.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-B5O2yO8Z.css">
+</head>
+<body>
+  <div id="app">
+    <div id="pet-area" data-tauri-drag-region>
+      <div id="pet" class="idle"></div>
+      <button id="chat-btn" title="对话">💬</button>
+      <button id="settings-btn" title="设置">⚙</button>
+    </div>
+    <div id="chat-area" class="hidden">
+      <button id="chat-close-btn" title="关闭">✕</button>
+      <div id="messages"></div>
+      <div id="input-area">
+        <input id="chat-input" type="text" placeholder="跟可心说点什么..." />
+        <button id="send-btn">发送</button>
+      </div>
+    </div>
+    <div id="settings-panel" class="hidden">
+      <h3>设置</h3>
+      <label>模型提供商
+        <select id="provider-select">
+          <option value="deepseek">DeepSeek</option>
+          <option value="openai">OpenAI</option>
+          <option value="claude">Claude</option>
+        </select>
+      </label>
+      <label>模型名称
+        <select id="model-select"></select>
+      </label>
+      <label>API Key
+        <input id="api-key-input" type="password" placeholder="输入 API Key" />
+      </label>
+      <label>系统提示词
+        <textarea id="system-prompt" rows="3"></textarea>
+      </label>
+      <label>角色选择</label>
+      <div id="character-grid"></div>
+      <label>桌宠大小 <span id="pet-size-val">100</span>px
+        <input id="pet-size-input" type="range" min="50" max="200" value="100" />
+      </label>
+      <div class="settings-actions">
+        <button id="save-settings-btn">保存</button>
+        <button id="close-settings-btn">关闭</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
