@@ -51,6 +51,31 @@ html, body {
 #pet.click { animation: jumpClick 0.6s ease-out; }
 #pet.dragged { animation: wobble 0.5s ease-in-out; }
 
+/* === 随机 idle 动作 === */
+#pet.act-nod { animation: actNod 0.8s ease-in-out 2; }
+#pet.act-shake { animation: actShake 0.6s ease-in-out 2; }
+#pet.act-spin { animation: actSpin 1.2s ease-in-out; }
+#pet.act-jump { animation: actJump 0.6s ease-out 2; }
+#pet.act-squat { animation: actSquat 1s ease-in-out; }
+#pet.act-lean-l { animation: actLeanL 1.5s ease-in-out; }
+#pet.act-lean-r { animation: actLeanR 1.5s ease-in-out; }
+#pet.act-peek-l { animation: actPeekL 1.5s ease-in-out; }
+#pet.act-peek-r { animation: actPeekR 1.5s ease-in-out; }
+#pet.act-stretch { animation: actStretch 2s ease-in-out; }
+#pet.act-dizzy { animation: actDizzy 1.5s ease-in-out; }
+#pet.act-float { animation: actFloat 2s ease-in-out; }
+#pet.act-dance { animation: actDance 0.5s ease-in-out 4; }
+#pet.act-wave { animation: actWave 0.4s ease-in-out 4; }
+#pet.act-stomp { animation: actStomp 0.3s ease-in-out 4; }
+#pet.act-yawn { animation: actYawn 2s ease-in-out; }
+#pet.act-shiver { animation: actShiver 0.15s ease-in-out 10; }
+#pet.act-bounce2 { animation: actBounce2 0.4s ease-in-out 3; }
+#pet.act-roll { animation: actRoll 1.2s ease-in-out; }
+#pet.act-sway { animation: actSway 1s ease-in-out 2; }
+#pet.act-tiptoe { animation: actTiptoe 1.5s ease-in-out; }
+#pet.act-slide-l { animation: actSlideL 1.5s ease-in-out; }
+#pet.act-slide-r { animation: actSlideR 1.5s ease-in-out; }
+
 /* === 手臂动画 === */
 #pet .arm-l, #pet .arm-r { transform-origin: top center; }
 #pet.idle .arm-l { animation: armSwingL 2.5s ease-in-out infinite; }
@@ -225,6 +250,113 @@ html, body {
 @keyframes wandPulse {
   0%, 100% { r: 6; opacity: 0.15; }
   50% { r: 10; opacity: 0.05; }
+}
+
+/* === 随机动作 Keyframes === */
+@keyframes actNod {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(8deg); }
+  60% { transform: rotate(-2deg); }
+}
+@keyframes actShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+@keyframes actSpin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+@keyframes actJump {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-20px); }
+  60% { transform: translateY(-18px); }
+}
+@keyframes actSquat {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  30% { transform: translateY(6px) scaleY(0.85); }
+  60% { transform: translateY(-12px) scaleY(1.1); }
+}
+@keyframes actLeanL {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-15deg); }
+}
+@keyframes actLeanR {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+@keyframes actPeekL {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-15px) rotate(-5deg); }
+}
+@keyframes actPeekR {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(15px) rotate(5deg); }
+}
+@keyframes actStretch {
+  0%, 100% { transform: scaleY(1) translateY(0); }
+  50% { transform: scaleY(1.15) translateY(-5px); }
+}
+@keyframes actDizzy {
+  0% { transform: rotate(0deg) translateX(0); }
+  25% { transform: rotate(8deg) translateX(5px); }
+  50% { transform: rotate(-8deg) translateX(-5px); }
+  75% { transform: rotate(5deg) translateX(3px); }
+  100% { transform: rotate(0deg) translateX(0); }
+}
+@keyframes actFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+@keyframes actDance {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-6px) rotate(-8deg); }
+  75% { transform: translateX(6px) rotate(8deg); }
+}
+@keyframes actWave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg) translateY(-2px); }
+  75% { transform: rotate(5deg) translateY(-2px); }
+}
+@keyframes actStomp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px) scaleY(0.95); }
+}
+@keyframes actYawn {
+  0%, 100% { transform: scale(1); }
+  30% { transform: scale(1.08, 0.94); }
+  60% { transform: scale(0.96, 1.06); }
+}
+@keyframes actShiver {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(2px); }
+}
+@keyframes actBounce2 {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  30% { transform: translateY(3px) scaleY(0.9); }
+  60% { transform: translateY(-14px) scaleY(1.05); }
+}
+@keyframes actRoll {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(360deg) translateX(10px); }
+  100% { transform: rotate(0deg) translateX(0); }
+}
+@keyframes actSway {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-8px) rotate(-4deg); }
+  75% { transform: translateX(8px) rotate(4deg); }
+}
+@keyframes actTiptoe {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-8px) scaleY(1.05); }
+}
+@keyframes actSlideL {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+}
+@keyframes actSlideR {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
 }
 
 /* 角色选择网格 */
